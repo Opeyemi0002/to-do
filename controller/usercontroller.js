@@ -92,6 +92,20 @@ export const getAllUsers = async (req,res)=> {
         console.log(error.message);
     }
 }
+export const updateUser = async (req,res)=> {
+    try{
+        const {firstname, lastname, email, password} = req.body;
+
+        const salt = await bcrypt.genSalt(10);
+        const NewPass = await bcrypt.hash(password,salt);
+        
+        await User.findByIdAndUpdate(req.userAuth,{firstname, lastname, email, password:NewPass}, {useFindAndModify:false});
+         
+        res.json({message: "the user has been updated successfully"});
+    }catch(error) {
+        console.log(error.message);
+    }
+}
 export const deleteUser = async (req, res)=> {
     try{
         await User.findByIdAndDelete(req.userAuth);
@@ -138,7 +152,7 @@ export const updateTask =async (req,res)=> {
         const {id} = req.params;
         const {task,date,hours,taskDescription} = req.body;
         
-        await User.findOneAndUpdate({_id:id},{task,date, hours,taskDescription}, {useFindAndModify:false});
+        await Task.findOneAndUpdate({_id:id},{task,date, hours,taskDescription}, {useFindAndModify:false});
          
         res.json({message: "the user has been updated successfully"});
        

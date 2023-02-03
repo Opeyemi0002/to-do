@@ -1,5 +1,5 @@
 import express from "express";
-import { userLogin, userRegistration,getUser, createTask,deleteTask,getAllUsers,deleteUser,updateTask, allTasks } from "../controller/usercontroller.js";
+import { userLogin, userRegistration,getUser, updateUser, createTask,deleteTask,getAllUsers,deleteUser,updateTask, allTasks } from "../controller/usercontroller.js";
 import isLogin from "../middleware/islogin.js";
 
 const router = express.Router();
@@ -12,6 +12,8 @@ router.post('/login', userLogin);
 router.get('/profile', isLogin, getUser);
 //get all users
 router.get('/', isLogin, getAllUsers);
+//update user
+router.patch('/userupdate', isLogin, updateUser)
 //delete user
 router.delete('/deleteuser', isLogin, deleteUser);
 // create task
