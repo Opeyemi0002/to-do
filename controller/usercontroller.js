@@ -98,7 +98,7 @@ export const updateUser = async (req,res)=> {
 
         const salt = await bcrypt.genSalt(10);
         const NewPass = await bcrypt.hash(password,salt);
-        
+
         await User.findByIdAndUpdate(req.userAuth,{firstname, lastname, email, password:NewPass}, {useFindAndModify:false});
          
         res.json({message: "the user has been updated successfully"});
